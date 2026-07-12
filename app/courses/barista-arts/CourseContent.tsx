@@ -321,6 +321,18 @@ export default function BaristaArtsContent() {
                   intensive practical sessions that simulate real café environments.
                 </p>
 
+                <p className="mt-4 text-base leading-relaxed text-slate-600">
+                  New to coffee? Read our guide on{" "}
+                  <Link
+                    href="/blog/how-to-become-a-barista-in-singapore"
+                    className="font-semibold text-(--brand) underline underline-offset-2 hover:brightness-110"
+                  >
+                    how to become a barista in Singapore
+                  </Link>{" "}
+                  to see the skills, training options, and career paths before you
+                  enrol.
+                </p>
+
                 <div className="mt-7 grid gap-3 sm:grid-cols-2">
                   {emphasisPoints.map((point, i) => (
                     <motion.div

@@ -27,6 +27,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...courseEntries,
     {
+      url: absoluteUrl("/blog/how-to-become-a-barista-in-singapore"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: absoluteUrl("/about"),
       lastModified,
       changeFrequency: "monthly",

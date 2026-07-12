@@ -283,3 +283,33 @@ export function faqJsonLd(faqs: { q: string; a: string }[]) {
     })),
   };
 }
+
+export type BlogPost = {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  datePublished: string;
+  dateModified: string;
+  keywords: string[];
+};
+
+export function articleJsonLd(post: BlogPost) {
+  const url = absoluteUrl(`/blog/${post.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: post.title,
+    description: post.description,
+    image: post.image,
+    datePublished: post.datePublished,
+    dateModified: post.dateModified,
+    inLanguage: "en-SG",
+    author: { "@id": organizationId },
+    publisher: { "@id": organizationId },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    keywords: post.keywords.join(", "),
+  };
+}
