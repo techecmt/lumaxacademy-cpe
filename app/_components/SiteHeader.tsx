@@ -18,7 +18,7 @@ import {
 const navItems = [
   { label: "About Us", href: "/about" },
   { label: "Student Affairs", href: "/student-affairs" },
-  { label: "Courses", href: "/#courses" },
+  { label: "Courses", href: "/courses" },
   { label: "Contact", href: "/#contact" },
 ] as const;
 

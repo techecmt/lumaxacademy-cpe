@@ -66,7 +66,7 @@ export default function CultureSection() {
 
       {/* Pillar cards */}
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
-        {pillars.map((p, i) => {
+        {pillars.map((p) => {
           const PIcon = p.icon;
           const isActive = active === p.id;
           return (
@@ -126,7 +126,7 @@ export default function CultureSection() {
                   <p
                     className={`border-l-2 ${p.borderAccent} pl-3 text-xs italic leading-relaxed ${p.textAccent}`}
                   >
-                    "{p.tagline}"
+                    &ldquo;{p.tagline}&rdquo;
                   </p>
                 </div>
 

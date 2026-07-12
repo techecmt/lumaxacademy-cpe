@@ -1,10 +1,32 @@
+import type { Metadata } from "next";
 import SiteFooter from "../_components/SiteFooter";
 import SiteHeader from "../_components/SiteHeader";
 import { FiArrowRight, FiCheck } from "react-icons/fi";
+import JsonLd from "../_components/JsonLd";
+import { breadcrumbJsonLd } from "../data/seo";
+
+export const metadata: Metadata = {
+  title: "Student Affairs & Learner Support",
+  description:
+    "Student Affairs at Lumax Academy Singapore — course counselling, enrolment support, academic guidance, and learner wellbeing services for students at our Beach Road campus.",
+  alternates: { canonical: "/student-affairs" },
+  openGraph: {
+    url: "/student-affairs",
+    title: "Student Affairs & Learner Support | Lumax Academy",
+    description:
+      "Course counselling, enrolment support, academic guidance, and learner wellbeing services at Lumax Academy Singapore.",
+  },
+};
 
 export default function StudentAffairsPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Student Affairs", path: "/student-affairs" },
+        ])}
+      />
       <SiteHeader />
 
       <main className="mx-auto max-w-7xl px-4 pb-16 pt-10 sm:pb-20 sm:pt-14">
@@ -18,10 +40,10 @@ export default function StudentAffairsPage() {
           Student Affairs
         </h1>
         <p className="mt-5 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
-          Student Affairs supports learners throughout their learning journey —
-          from enrolment guidance to ongoing student support. This page is a
-          starting point; we can expand it with your exact processes,
-          documents, and policies.
+          Student Affairs supports learners at Lumax Academy Singapore
+          throughout their learning journey — from course counselling and
+          enrolment guidance to academic support and learner wellbeing at our
+          Beach Road campus.
         </p>
 
         <section className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -60,7 +82,7 @@ export default function StudentAffairsPage() {
             </div>
             <div className="mt-5 space-y-3">
               {[
-                { label: "Explore courses", href: "/#courses" },
+                { label: "Explore courses", href: "/courses" },
                 { label: "Contact us", href: "/#contact" },
                 { label: "About Lumax Academy", href: "/about" },
               ].map((l) => (

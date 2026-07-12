@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { IconType } from "react-icons";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FiArrowRight, FiArrowUp, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
@@ -19,16 +20,31 @@ export default function SiteFooter({ className }: FooterProps) {
   const companyLinks = [
     { label: "About Us", href: "/about" },
     { label: "Student Affairs", href: "/student-affairs" },
-    { label: "Courses", href: "/#courses" },
+    { label: "All Courses", href: "/courses" },
     { label: "Contact", href: "/#contact" },
   ];
 
-  const categories = [
-    "Physiotherapy Support",
-    "Wound Care Support",
-    "Autism Caregiving",
-    "Therapy Assistant Skills",
-    "Childcare Management",
+  const courseLinks = [
+    {
+      label: "Nursing Aide Course",
+      href: "/courses/advanced-certificate-in-nursing-aide",
+    },
+    {
+      label: "Caregiver Course (Elderly, Autism & Child Care)",
+      href: "/courses/advanced-certificate-in-professional-caregiving",
+    },
+    {
+      label: "Healthcare Administration Course",
+      href: "/courses/hospital-healthcare-administration",
+    },
+    {
+      label: "Barista Course",
+      href: "/courses/barista-arts",
+    },
+    {
+      label: "All Courses in Singapore",
+      href: "/courses",
+    },
   ];
 
   return (
@@ -45,17 +61,17 @@ export default function SiteFooter({ className }: FooterProps) {
       <div className="relative mx-auto max-w-7xl px-4 pt-14 sm:pt-16">
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.8fr_0.95fr_1.25fr] lg:gap-12">
           <div>
-            <a href="/" className="inline-flex items-center gap-3">
+            <Link href="/" className="inline-flex items-center gap-3">
               <span className="grid h-20 w-20 place-items-center overflow-hidden rounded-2xl bg-white p-2 ring-1 ring-white/10 sm:h-24 sm:w-24">
                 <Image
                   src="/lumax_logo.jpg"
-                  alt="Lumax Academy"
+                  alt="Lumax Academy — skills training academy in Singapore"
                   width={96}
                   height={192}
                   className="h-full w-full object-contain"
                 />
               </span>
-                          </a>
+            </Link>
 
             <div className="mt-7 space-y-5">
               {[
@@ -124,21 +140,21 @@ export default function SiteFooter({ className }: FooterProps) {
 
           <div>
             <div className="text-sm font-extrabold uppercase tracking-wide">
-              Categories
+              Our Courses
             </div>
             <div className="mt-3 h-px w-16 bg-white/30" />
             <ul className="mt-5 space-y-3 text-sm text-white/70">
-              {categories.map((x) => (
-                <li key={x}>
+              {courseLinks.map((x) => (
+                <li key={x.label}>
                   <a
-                    href="/#courses"
+                    href={x.href}
                     className="group inline-flex items-center gap-2 hover:text-white"
                   >
                     <FiArrowRight
                       className="h-3.5 w-3.5 text-[#faa426] transition group-hover:translate-x-0.5"
                       aria-hidden
                     />
-                    {x}
+                    {x.label}
                   </a>
                 </li>
               ))}
