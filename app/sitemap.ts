@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { courses } from "./data/coursedata";
-import { absoluteUrl } from "./data/seo";
+import { absoluteUrl, blogPosts } from "./data/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -10,6 +10,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified,
     changeFrequency: "monthly",
     priority: 0.9,
+  }));
+
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: absoluteUrl(`/blog/${post.slug}`),
+    lastModified: new Date(post.datePublished),
+    changeFrequency: "monthly",
+    priority: 0.7,
   }));
 
   return [
@@ -27,11 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...courseEntries,
     {
-      url: absoluteUrl("/blog/how-to-become-a-barista-in-singapore"),
+      url: absoluteUrl("/blog"),
       lastModified,
-      changeFrequency: "monthly",
-      priority: 0.7,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
+    ...blogEntries,
     {
       url: absoluteUrl("/about"),
       lastModified,

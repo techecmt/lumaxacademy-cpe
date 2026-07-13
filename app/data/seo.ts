@@ -295,6 +295,47 @@ export type BlogPost = {
   keywords: string[];
 };
 
+export type BlogPostSummary = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  imageAlt: string;
+  datePublished: string;
+  category: string;
+  readingTime: string;
+};
+
+// Newest first — controls the /blog listing order.
+export const blogPosts: BlogPostSummary[] = [
+  {
+    slug: "barista-interview-questions-singapore",
+    title: "50 Barista Interview Questions and Answers (Singapore Guide)",
+    excerpt:
+      "50 common barista interview questions with why each is asked, a sample answer, and a tip — covering coffee knowledge, customer service, situational scenarios, and Singapore café-specific questions.",
+    image:
+      "https://images.unsplash.com/photo-1521302080334-4bebac2763a6?auto=format&fit=crop&w=1400&q=80",
+    imageAlt:
+      "Barista at an espresso machine in a Singapore café during a job trial",
+    datePublished: "2026-07-13",
+    category: "Barista Careers",
+    readingTime: "18 min read",
+  },
+  {
+    slug: "how-to-become-a-barista-in-singapore",
+    title: "How to Become a Barista in Singapore: Skills, Training & Careers",
+    excerpt:
+      "A complete guide to becoming a barista in Singapore — what baristas do, the skills you need, how a barista course works, and the career paths open to you in Singapore's café scene.",
+    image:
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1400&q=80",
+    imageAlt:
+      "Barista preparing espresso on a café coffee machine in Singapore",
+    datePublished: "2026-07-12",
+    category: "Barista Careers",
+    readingTime: "8 min read",
+  },
+];
+
 export function articleJsonLd(post: BlogPost) {
   const url = absoluteUrl(`/blog/${post.slug}`);
   return {

@@ -21,6 +21,7 @@ export default function SiteFooter({ className }: FooterProps) {
     { label: "About Us", href: "/about" },
     { label: "Student Affairs", href: "/student-affairs" },
     { label: "All Courses", href: "/courses" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/#contact" },
   ];
 

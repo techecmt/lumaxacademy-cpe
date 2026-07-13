@@ -133,7 +133,7 @@ export default function Page() {
           articleJsonLd(post),
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
-            { name: "Blog", path: `/blog/${post.slug}` },
+            { name: "Blog", path: "/blog" },
             { name: "How to Become a Barista in Singapore", path: `/blog/${post.slug}` },
           ]),
           faqJsonLd(faqs),
@@ -263,6 +263,16 @@ export default function Page() {
                 supervisor or store manager, and eventually roles like coffee
                 trainer or café owner. The skills you build are portable across
                 every café and coffee brand in the country.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-slate-600">
+                Ready to apply? Prepare with our{" "}
+                <Link
+                  href="/blog/barista-interview-questions-singapore"
+                  className="font-semibold text-(--brand) underline underline-offset-2 hover:brightness-110"
+                >
+                  50 barista interview questions and answers for Singapore
+                </Link>
+                .
               </p>
             </section>
 
