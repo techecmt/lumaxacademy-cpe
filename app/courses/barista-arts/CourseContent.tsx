@@ -2,11 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { motion } from "motion/react";
 import BlurText from "../../_components/BlurText";
 import SiteFooter from "../../_components/SiteFooter";
 import SiteHeader from "../../_components/SiteHeader";
 import ContactForm from "../../_components/contactform";
+import LazyMount from "../../_components/LazyMount";
+
+const CircularGallery = dynamic(
+  () => import("../../_components/CircularGallery/CircularGallery"),
+  { ssr: false }
+);
 import type { IconType } from "react-icons";
 import {
   FiArrowRight,
@@ -164,6 +171,15 @@ const careers: { title: string; icon: IconType }[] = [
   { title: "Coffee Shop Crew", icon: FiBriefcase },
 ];
 
+const latteArtImages: { image: string; text: string }[] = [
+  { image: "/barista_images/latteart1.png", text: "" },
+  { image: "/barista_images/latteart2.png", text: "" },
+  { image: "/barista_images/latteart3.png", text: "" },
+  { image: "/barista_images/latteart4.png", text: "" },
+  { image: "/barista_images/latteart5.png", text: "" },
+  { image: "/barista_images/latteart6.png", text: "" },
+];
+
 const fadeUp = {
   hidden: { opacity: 0, y: 26 },
   show: { opacity: 1, y: 0 },
@@ -189,7 +205,7 @@ export default function BaristaArtsContent() {
           <div className="absolute inset-0">
             <Image
               alt="Barista pouring latte art at an espresso machine"
-              src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=1600&q=80"
+              src="/heroimages/baristahero.png"
               fill
               priority
               sizes="100vw"
@@ -297,6 +313,41 @@ export default function BaristaArtsContent() {
           </div>
         </section>
 
+        {/* ─────────────── Latte art showcase gallery ─────────────── */}
+        <section
+          aria-label="Student latte art showcase"
+          className="relative overflow-hidden bg-slate-950 py-10 sm:py-14"
+        >
+          <div className="mx-auto max-w-7xl px-4">
+            <div className="text-center">
+              <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
+                LATTE ART GALLERY
+              </div>
+              <p className="mt-2 text-sm font-medium text-white/60">
+                Drag, scroll, or use the arrow keys to explore
+              </p>
+            </div>
+
+            <LazyMount
+              rootMargin="200px"
+              className="relative mt-6 h-[300px] sm:h-[420px] md:h-[480px]"
+              placeholder={
+                <div className="h-full w-full animate-pulse rounded-2xl bg-white/5" />
+              }
+            >
+              <CircularGallery
+                items={latteArtImages}
+                bend={2}
+                textColor="#ffffff"
+                borderRadius={0.06}
+                scrollSpeed={1.6}
+                scrollEase={0.06}
+                font="600 22px var(--font-sans, sans-serif)"
+              />
+            </LazyMount>
+          </div>
+        </section>
+
         {/* ──────────────────── Programme overview ──────────────────── */}
         <section className="py-14 sm:py-20">
           <div className="mx-auto max-w-7xl px-4">
@@ -367,28 +418,11 @@ export default function BaristaArtsContent() {
                   <div className="relative h-[340px] sm:h-[440px] lg:h-[520px]">
                     <Image
                       alt="Latte art being poured into a coffee cup"
-                      src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80"
+                      src="/heroimages/barista_section.png"
                       fill
                       sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="object-cover"
+                      className="object-contain"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-950/5 to-transparent" />
-                    <div className="absolute inset-x-5 bottom-5 rounded-3xl bg-white/92 p-5 shadow-lg ring-1 ring-black/5 backdrop-blur">
-                      <div className="flex items-start gap-3">
-                        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-(--brand) text-white">
-                          <FiThermometer className="h-5 w-5" aria-hidden />
-                        </div>
-                        <div>
-                          <div className="text-sm font-extrabold text-slate-950">
-                            Intensive hands-on practice
-                          </div>
-                          <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                            Espresso, steaming, and latte art practised on
-                            industry-standard equipment.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </motion.div>
