@@ -320,9 +320,20 @@ export default function BaristaArtsContent() {
         >
           <div className="mx-auto max-w-7xl px-4">
             <div className="text-center">
-              <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
-                LATTE ART GALLERY
-              </div>
+              <h2 className="text-2xl font-black uppercase tracking-wide sm:text-3xl md:text-4xl">
+                <motion.span
+                  className="inline-block bg-linear-to-r from-white via-(--brand) to-white bg-[length:200%_auto] bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(250,164,38,0.25)]"
+                  initial={{ backgroundPosition: "200% center" }}
+                  animate={{ backgroundPosition: "0% center" }}
+                  transition={{
+                    duration: 4.5,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  Our Students&apos; Latte Art
+                </motion.span>
+              </h2>
               <p className="mt-2 text-sm font-medium text-white/60">
                 Drag, scroll, or use the arrow keys to explore
               </p>
