@@ -42,6 +42,10 @@ export type CourseSeo = {
   priceSGD: number;
   teaches: string[];
   occupations: string[];
+  /** ISO 8601 duration. Defaults to PT36H when omitted. */
+  timeRequired?: string;
+  /** Defaults to ["Onsite", "Online"] when omitted. */
+  courseMode?: string[];
 };
 
 export const courseSeoBySlug: Record<string, CourseSeo> = {
@@ -169,6 +173,44 @@ export const courseSeoBySlug: Record<string, CourseSeo> = {
     ],
     occupations: ["Barista", "Café Service Crew", "Coffee Specialist"],
   },
+  "advanced-certificate-in-air-conditioning-installation-maintenance": {
+    slug: "advanced-certificate-in-air-conditioning-installation-maintenance",
+    metaTitle: "Aircon Course in Singapore — HVAC Installation & Servicing",
+    metaDescription:
+      "24-hour Advanced Certificate in Air-Conditioning Installation & Maintenance (Residential & Commercial) at Lumax Academy, Beach Road Singapore — near Nicoll Highway & Bugis MRT. Hands-on aircon installation, servicing and HVAC troubleshooting. Weekend classes. Enquire now.",
+    keywords: [
+      "aircon course Singapore",
+      "aircon servicing course Singapore",
+      "HVAC course Singapore",
+      "air-conditioning installation course Singapore",
+      "aircon technician training Singapore",
+      "HVAC technician course Beach Road",
+    ],
+    courseName:
+      "Advanced Certificate in Air-Conditioning Installation & Maintenance (Residential & Commercial)",
+    courseDescription:
+      "A 24-hour part-time HVAC programme in Singapore combining classroom theory with extensive hands-on practical training in air-conditioning installation, commissioning, preventive maintenance, and fault troubleshooting — preparing learners for technician roles in the HVAC, facilities management, and building services sectors.",
+    credentialAwarded:
+      "Advanced Certificate in Air-Conditioning Installation & Maintenance (Residential & Commercial)",
+    priceSGD: 600,
+    timeRequired: "PT24H",
+    courseMode: ["Onsite"],
+    teaches: [
+      "Refrigeration and air-conditioning principles",
+      "Split-unit installation and commissioning",
+      "Preventive maintenance and servicing",
+      "Electrical and mechanical fault diagnosis",
+      "Commercial HVAC systems (FCU, AHU, VRF)",
+      "Workplace Safety and Health (WSH) practices",
+    ],
+    occupations: [
+      "Air-Conditioning Installation Technician",
+      "HVAC Service Technician",
+      "Building Maintenance Technician",
+      "Facilities Maintenance Technician",
+      "M&E Maintenance Technician",
+    ],
+  },
 };
 
 export function absoluteUrl(path: string) {
@@ -220,6 +262,7 @@ export function organizationJsonLd() {
 }
 
 export function courseJsonLd(seo: CourseSeo) {
+  const timeRequired = seo.timeRequired ?? "PT36H";
   return {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -231,7 +274,7 @@ export function courseJsonLd(seo: CourseSeo) {
     educationalCredentialAwarded: seo.credentialAwarded,
     teaches: seo.teaches,
     availableLanguage: "en",
-    timeRequired: "PT36H",
+    timeRequired,
     offers: {
       "@type": "Offer",
       category: "Paid",
@@ -242,8 +285,8 @@ export function courseJsonLd(seo: CourseSeo) {
     },
     hasCourseInstance: {
       "@type": "CourseInstance",
-      courseMode: ["Onsite", "Online"],
-      courseWorkload: "PT36H",
+      courseMode: seo.courseMode ?? ["Onsite", "Online"],
+      courseWorkload: timeRequired,
       location: {
         "@type": "Place",
         name: `${SITE.name} — The Plaza, Beach Road`,

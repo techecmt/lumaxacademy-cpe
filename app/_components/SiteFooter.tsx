@@ -43,6 +43,10 @@ export default function SiteFooter({ className }: FooterProps) {
       href: "/courses/barista-arts",
     },
     {
+      label: "Aircon & HVAC Course",
+      href: "/courses/advanced-certificate-in-air-conditioning-installation-maintenance",
+    },
+    {
       label: "All Courses in Singapore",
       href: "/courses",
     },

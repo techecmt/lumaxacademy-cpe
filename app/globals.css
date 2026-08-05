@@ -48,3 +48,49 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Glowing gradient text — used for course-name qualifiers on dark hero sections. */
+@keyframes brand-glow-sweep {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes brand-glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 10px rgba(250, 164, 38, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 0 26px rgba(250, 164, 38, 0.7));
+  }
+}
+
+.text-glow-brand {
+  background-image: linear-gradient(
+    100deg,
+    #faa426 0%,
+    #ffd483 25%,
+    #ffffff 50%,
+    #ffd483 75%,
+    #faa426 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    brand-glow-sweep 6s ease-in-out infinite,
+    brand-glow-pulse 3.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-glow-brand {
+    animation: none;
+    filter: drop-shadow(0 0 14px rgba(250, 164, 38, 0.45));
+  }
+}

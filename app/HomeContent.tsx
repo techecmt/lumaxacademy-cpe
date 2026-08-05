@@ -163,7 +163,7 @@ export default function HomeContent() {
                   hands-on, instructor-led courses.
                 </motion.h1>
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-                Practical, job-focused certificate courses in nursing aide, caregiving, healthcare administration, and barista arts — taught at our Beach Road campus at The Plaza, minutes from Nicoll Highway and Bugis MRT, with flexible e-learning options.
+                Practical, job-focused certificate courses in nursing aide, caregiving, healthcare administration, barista arts, and air-conditioning &amp; HVAC maintenance — taught at our Beach Road campus at The Plaza, minutes from Nicoll Highway and Bugis MRT, with flexible e-learning options.
                 </p>
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">

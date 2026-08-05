@@ -66,6 +66,21 @@ export const courses: Course[] = [
     hours: "36 Hours",
     featured: true,
   },
+  {
+    id: "advanced-certificate-in-air-conditioning-installation-maintenance",
+    title:
+      "Advanced Certificate in Air-Conditioning Installation & Maintenance (Residential & Commercial)",
+    image: "/heroimages/adv_certificate_aircon.png",
+    targetAudience: [
+      "Aspiring HVAC technicians",
+      "Facilities and building maintenance staff",
+      "Aircon servicing technicians upgrading skills",
+      "Career switchers into M&E and building services",
+    ],
+    moduleCount: 3,
+    hours: "24 Hours",
+    featured: true,
+  },
 ];
 
 export const featuredCourses = courses.filter((course) => course.featured);

@@ -11,13 +11,15 @@ import { absoluteUrl, breadcrumbJsonLd, courseSeoBySlug } from "../data/seo";
 export const metadata: Metadata = {
   title: "Certificate Courses in Singapore",
   description:
-    "Browse all Lumax Academy certificate courses in Singapore — nursing aide, professional caregiving (elderly, autism & child care), hospital & healthcare administration, and barista arts. Weekend classes at Beach Road, near Nicoll Highway & Bugis MRT.",
+    "Browse all Lumax Academy certificate courses in Singapore — nursing aide, professional caregiving (elderly, autism & child care), hospital & healthcare administration, barista arts, and air-conditioning installation & maintenance. Weekend classes at Beach Road, near Nicoll Highway & Bugis MRT.",
   keywords: [
     "certificate courses Singapore",
     "skills training courses Singapore",
     "healthcare courses Singapore",
     "caregiver course Singapore",
     "barista course Singapore",
+    "aircon servicing course Singapore",
+    "HVAC course Singapore",
     "part-time courses Beach Road Singapore",
   ],
   alternates: { canonical: "/courses" },
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
     url: "/courses",
     title: "Certificate Courses in Singapore | Lumax Academy",
     description:
-      "Nursing aide, caregiving, healthcare administration and barista arts courses — weekend classes at Beach Road, Singapore.",
+      "Nursing aide, caregiving, healthcare administration, barista arts and aircon & HVAC courses — weekend classes at Beach Road, Singapore.",
   },
 };
 
@@ -85,7 +87,8 @@ export default function CoursesPage() {
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
               Practical, part-time certificate courses in healthcare, caregiving,
-              and barista arts — taught with hands-on training at our Beach Road
+              barista arts, and air-conditioning &amp; HVAC maintenance — taught
+              with hands-on training at our Beach Road
               campus at The Plaza, a short walk from Nicoll Highway and Bugis
               MRT. Weekend schedules designed for working adults, employers
               upskilling care staff, and career switchers.
