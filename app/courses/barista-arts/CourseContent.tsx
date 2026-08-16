@@ -9,6 +9,7 @@ import SiteFooter from "../../_components/SiteFooter";
 import SiteHeader from "../../_components/SiteHeader";
 import ContactForm from "../../_components/contactform";
 import LazyMount from "../../_components/LazyMount";
+import BaristaStudentsBento from "./BaristaStudentsBento";
 
 const CircularGallery = dynamic(
   () => import("../../_components/CircularGallery/CircularGallery"),
@@ -358,6 +359,20 @@ export default function BaristaArtsContent() {
             </LazyMount>
           </div>
         </section>
+
+        <LazyMount
+          rootMargin="280px"
+          placeholder={
+            <section className="bg-white py-14 sm:py-20" aria-hidden>
+              <div className="mx-auto max-w-7xl px-4">
+                <div className="mx-auto h-24 max-w-3xl animate-pulse rounded-2xl bg-slate-100" />
+                <div className="mt-10 h-[420px] animate-pulse rounded-3xl bg-slate-100 sm:h-[520px] md:h-[720px]" />
+              </div>
+            </section>
+          }
+        >
+          <BaristaStudentsBento />
+        </LazyMount>
 
         {/* ──────────────────── Programme overview ──────────────────── */}
         <section className="py-14 sm:py-20">
