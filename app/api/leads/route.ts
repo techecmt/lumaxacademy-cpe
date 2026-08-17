@@ -58,8 +58,7 @@ export async function POST(request: Request) {
   }
 
   const formattedPhone = [phoneCode, phone].filter(Boolean).join(" ");
-  const notes = [
-    nationality ? `Nationality: ${nationality}` : "",
+  const description = [
     startMonth ? `Preferred start month: ${startMonth}` : "",
     message ? `Message: ${message}` : "",
   ]
@@ -79,10 +78,11 @@ export async function POST(request: Request) {
       full_name: fullName,
       phone: formattedPhone,
       email: email || null,
+      nationality,
       interested_course: courseTitle || courseId,
       source: "website",
       status: "inquiry_received",
-      notes: notes || null,
+      description: description || null,
     }),
   });
 
