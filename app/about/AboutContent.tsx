@@ -658,7 +658,7 @@ export default function AboutContent() {
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
                   <Link
-                    href="/#contact"
+                    href="/contact"
                     className="inline-flex items-center justify-center rounded-xl bg-(--brand) px-6 py-3 text-sm font-semibold text-white hover:brightness-110"
                   >
                     Contact Lumax Academy

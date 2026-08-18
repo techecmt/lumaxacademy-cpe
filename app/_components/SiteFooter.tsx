@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type { IconType } from "react-icons";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import { FiArrowRight, FiArrowUp, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { FiArrowRight, FiArrowUp, FiMail, FiMapPin } from "react-icons/fi";
 import { SiTiktok, SiYoutube } from "react-icons/si";
+import { departments } from "../data/contact";
 
 type FooterProps = {
   className?: string;
@@ -22,7 +23,7 @@ export default function SiteFooter({ className }: FooterProps) {
     { label: "Student Affairs", href: "/student-affairs" },
     { label: "All Courses", href: "/courses" },
     { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Contact", href: "/contact" },
   ];
 
   const courseLinks = [
@@ -54,7 +55,6 @@ export default function SiteFooter({ className }: FooterProps) {
 
   return (
     <footer
-      id="contact"
       className={[
         "relative overflow-hidden rounded-t-[28px] bg-[#10143a] text-white",
         className,
@@ -80,12 +80,6 @@ export default function SiteFooter({ className }: FooterProps) {
 
             <div className="mt-7 space-y-5">
               {[
-                {
-                  icon: FiPhone,
-                  title: "Call us",
-                  text: "+65 8221 6423",
-                  href: "tel:+6582216423",
-                },
                 {
                   icon: FiMail,
                   title: "Need support?",
@@ -128,7 +122,7 @@ export default function SiteFooter({ className }: FooterProps) {
             <ul className="mt-5 space-y-3 text-sm text-white/70">
               {companyLinks.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Link
                     href={item.href}
                     className="group inline-flex items-center gap-2 hover:text-white"
                   >
@@ -137,7 +131,7 @@ export default function SiteFooter({ className }: FooterProps) {
                       aria-hidden
                     />
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -188,7 +182,65 @@ export default function SiteFooter({ className }: FooterProps) {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-5 border-t border-white/10 py-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {departments.map((dept) => (
+            <div
+              key={dept.title}
+              className="rounded-2xl bg-white/5 p-5 ring-1 ring-white/10"
+            >
+              <div className="flex items-start gap-3">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#faa426] text-[#193764] shadow-lg shadow-[#faa426]/20">
+                  <dept.icon className="h-5 w-5" aria-hidden />
+                </span>
+                <div className="min-w-0">
+                  <div className="text-sm font-extrabold leading-snug text-white">
+                    {dept.title}
+                  </div>
+                  <div className="mt-2 space-y-1.5">
+                    {dept.phones.map((phone) => (
+                      <a
+                        key={phone.href}
+                        href={phone.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-sm font-bold text-white transition hover:text-[#faa426]"
+                      >
+                        {phone.name ? (
+                          <>
+                            <span className="font-semibold text-white/60">
+                              {phone.name}:{" "}
+                            </span>
+                            {phone.display}
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-xs font-semibold text-white/55">
+                              For:{" "}
+                            </span>
+                            {phone.display}
+                          </>
+                        )}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <ul className="mt-4 space-y-1.5 text-xs leading-relaxed text-white/65">
+                {dept.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span
+                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#faa426]"
+                      aria-hidden
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 flex flex-col gap-5 border-t border-white/10 py-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <div>
             Copyright © {new Date().getFullYear()} Lumax Academy. All Rights Reserved.
           </div>

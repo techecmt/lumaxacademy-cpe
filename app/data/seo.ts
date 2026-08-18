@@ -18,11 +18,6 @@ export const SITE = {
   },
   mapUrl:
     "https://www.google.com/maps/search/?api=1&query=7500A%20Beach%20Rd%20%2301-308%20THE%20PLAZA%20Singapore%20199591",
-  openingHours: {
-    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    opens: "09:00",
-    closes: "18:00",
-  },
   socials: [
     "https://www.facebook.com/profile.php?id=61589531251092",
     "https://www.instagram.com/lumax.academy/",
@@ -30,6 +25,23 @@ export const SITE = {
     "https://www.youtube.com/@LumaxAcademy",
   ],
 };
+
+export type OpeningHoursDay = {
+  day: string;
+  label: string;
+  opens?: string;
+  closes?: string;
+};
+
+export const openingHours: OpeningHoursDay[] = [
+  { day: "Monday", label: "9:30 am – 6:30 pm", opens: "09:30", closes: "18:30" },
+  { day: "Tuesday", label: "9:30 am – 6:30 pm", opens: "09:30", closes: "18:30" },
+  { day: "Wednesday", label: "9:30 am – 6:30 pm", opens: "09:30", closes: "18:30" },
+  { day: "Thursday", label: "Closed" },
+  { day: "Friday", label: "1:00 pm – 6:30 pm", opens: "13:00", closes: "18:30" },
+  { day: "Saturday", label: "9:30 am – 6:30 pm", opens: "09:30", closes: "18:30" },
+  { day: "Sunday", label: "9:00 am – 7:00 pm", opens: "09:00", closes: "19:00" },
+];
 
 export type CourseSeo = {
   slug: string;
@@ -249,14 +261,14 @@ export function organizationJsonLd() {
       "@type": "Country",
       name: "Singapore",
     },
-    openingHoursSpecification: [
-      {
+    openingHoursSpecification: openingHours
+      .filter((day) => day.opens && day.closes)
+      .map((day) => ({
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: SITE.openingHours.days,
-        opens: SITE.openingHours.opens,
-        closes: SITE.openingHours.closes,
-      },
-    ],
+        dayOfWeek: day.day,
+        opens: day.opens,
+        closes: day.closes,
+      })),
     sameAs: SITE.socials,
   };
 }

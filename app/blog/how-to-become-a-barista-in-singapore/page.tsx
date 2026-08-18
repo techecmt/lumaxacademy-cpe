@@ -64,7 +64,7 @@ const faqs = [
   },
   {
     q: "Where can I take a barista course in Singapore?",
-    a: "Lumax Academy runs its Certificate in Barista Arts at our Beach Road campus (The Plaza, 7500A Beach Road), a short walk from Bugis and Nicoll Highway MRT. Classes are held on weekends and the campus is open Monday to Sunday, 9am to 6pm.",
+    a: "Lumax Academy runs its Certificate in Barista Arts at our Beach Road campus (The Plaza, 7500A Beach Road), a short walk from Bugis and Nicoll Highway MRT. Classes are held on weekends. Campus hours: Mon–Wed and Saturday 9:30am–6:30pm, Thursday closed, Friday 1pm–6:30pm, Sunday 9am–7pm.",
   },
 ];
 
@@ -410,7 +410,7 @@ export default function Page() {
                 The Plaza, 7500A Beach Road — a short walk from Bugis and Nicoll
                 Highway MRT, in the heart of Singapore&rsquo;s Bugis–Kallang
                 corridor. Weekend classes are built for working adults and career
-                switchers, and our campus is open seven days a week.
+                switchers, and our campus is open daily except Thursday.
               </p>
               <p className="mt-4 text-base leading-relaxed text-slate-600">
                 If you&rsquo;re ready to turn a love of coffee into a real skill —
@@ -461,7 +461,7 @@ export default function Page() {
                 <FiArrowRight className="ml-2 h-4 w-4" aria-hidden />
               </Link>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/15"
               >
                 Talk to our team

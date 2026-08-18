@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     absolute: "Lumax Academy Singapore | Healthcare, Caregiving & Barista Courses",
   },
   description:
-    "Skills training academy at The Plaza, Beach Road Singapore — near Nicoll Highway & Bugis MRT. Hands-on certificate courses in nursing aide, caregiving (elderly, autism & child care), healthcare administration and barista arts. Open 7 days.",
+    "Skills training academy at The Plaza, Beach Road Singapore — near Nicoll Highway & Bugis MRT. Hands-on certificate courses in nursing aide, caregiving (elderly, autism & child care), healthcare administration and barista arts. Open daily except Thursday.",
   alternates: {
     canonical: "/",
   },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     url: "/",
     title: "Lumax Academy Singapore | Healthcare, Caregiving & Barista Courses",
     description:
-      "Hands-on certificate courses at Beach Road, Singapore — nursing aide, caregiving, healthcare administration and barista arts. Open 7 days.",
+      "Hands-on certificate courses at Beach Road, Singapore — nursing aide, caregiving, healthcare administration and barista arts. Open daily except Thursday.",
   },
 };
 

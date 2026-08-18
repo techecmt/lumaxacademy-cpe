@@ -96,8 +96,8 @@ export default function CoursesPage() {
 
             <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-(--border) bg-white/80 px-4 py-2 text-xs font-semibold text-slate-700">
               <FiMapPin className="h-4 w-4 text-(--brand)" aria-hidden />
-              7500A Beach Rd, #01-308 THE PLAZA, Singapore 199591 · Open Mon–Sun,
-              9am–6pm
+              7500A Beach Rd, #01-308 THE PLAZA, Singapore 199591 · Open daily
+              except Thursday
             </div>
           </div>
         </section>
@@ -192,7 +192,7 @@ export default function CoursesPage() {
                 programme and share upcoming intake dates.
               </p>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="mt-6 inline-flex items-center justify-center rounded-xl bg-[#193764] px-6 py-3 text-sm font-semibold text-white hover:brightness-110"
               >
                 Talk to our team

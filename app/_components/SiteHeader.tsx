@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { IconType } from "react-icons";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
@@ -20,10 +21,15 @@ const navItems = [
   { label: "Student Affairs", href: "/student-affairs" },
   { label: "Courses", href: "/courses" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
+function isNavActive(href: string, pathname: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export default function SiteHeader() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -130,27 +136,40 @@ export default function SiteHeader() {
 
             <nav className="hidden flex-1 justify-center lg:flex">
               <div className="flex items-center gap-1">
-                {navItems.map((item) =>
-                  item.href.startsWith("/") && !item.href.startsWith("/#") ? (
+                {navItems.map((item) => {
+                  const active = isNavActive(item.href, pathname);
+                  const className = [
+                    "rounded-xl px-3 py-2 text-sm font-semibold",
+                    active
+                      ? "bg-[#fff7e8] text-[#193764]"
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
+                  ].join(" ");
+                  return item.href.startsWith("/") &&
+                    !item.href.startsWith("/#") ? (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                      className={className}
                     >
                       {item.label}
                     </Link>
                   ) : (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-slate-900"
-                    >
+                    <a key={item.label} href={item.href} className={className}>
                       {item.label}
                     </a>
-                  )
-                )}
+                  );
+                })}
               </div>
             </nav>
+
+            <div className="hidden shrink-0 lg:block">
+              <Link
+                href="/contact"
+                className="inline-flex h-11 items-center rounded-2xl bg-(--brand-2) px-5 text-sm font-extrabold text-white shadow-lg shadow-[#193764]/20 transition hover:brightness-110"
+              >
+                Enquire Now
+              </Link>
+            </div>
 
             <div className="flex shrink-0 items-center gap-2 lg:hidden">
               <a
@@ -241,8 +260,13 @@ export default function SiteHeader() {
             <nav className="flex-1 overflow-y-auto px-3 py-3">
               <div className="grid gap-1.5">
                 {navItems.map((item) => {
-                  const cls =
-                    "group flex items-center justify-between rounded-xl border border-(--border) bg-white px-3.5 py-3 text-[13px] font-extrabold text-[#193764] shadow-sm shadow-black/4 transition active:scale-[0.98] hover:border-[#faa426]/30 hover:bg-[#fff7e8]";
+                  const active = isNavActive(item.href, pathname);
+                  const cls = [
+                    "group flex items-center justify-between rounded-xl border px-3.5 py-3 text-[13px] font-extrabold text-[#193764] shadow-sm shadow-black/4 transition active:scale-[0.98]",
+                    active
+                      ? "border-[#faa426]/40 bg-[#fff7e8]"
+                      : "border-(--border) bg-white hover:border-[#faa426]/30 hover:bg-[#fff7e8]",
+                  ].join(" ");
                   const arrow = (
                     <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#fff7e8] text-(--brand) transition group-hover:bg-(--brand) group-hover:text-white">
                       <FiChevronRight className="h-3.5 w-3.5" aria-hidden />
@@ -276,7 +300,7 @@ export default function SiteHeader() {
 
             <div className="border-t border-(--border) bg-(--surface-2) px-3 py-3">
               <Link
-                href="/#contact"
+                href="/contact"
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center justify-center rounded-xl bg-(--brand) px-5 py-2.5 text-sm font-extrabold text-[#193764] shadow-md shadow-[#faa426]/20"
               >

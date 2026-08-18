@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { FaStar } from "react-icons/fa";
 import BlurText from "./_components/BlurText";
 import SiteFooter from "./_components/SiteFooter";
 import SiteHeader from "./_components/SiteHeader";
+import CampusHours from "./_components/CampusHours";
 import ContactForm from "./_components/contactform";
 import { featuredCourses } from "./data/coursedata";
 import type { IconType } from "react-icons";
@@ -189,7 +191,7 @@ export default function HomeContent() {
                     { k: "4", v: "Certificate Courses" },
                     { k: "36h", v: "Hands-On Training" },
                     { k: "1:20", v: "Class Ratio" },
-                    { k: "7 Days", v: "Open Mon–Sun" },
+                    { k: "6 Days", v: "Closed Thursday" },
                   ].map((s) => (
                     <div
                       key={s.v}
@@ -524,8 +526,8 @@ export default function HomeContent() {
                 </h2>
                 <p className="mt-4 text-base leading-relaxed text-slate-600">
                   Lumax Academy is located at The Plaza on Beach Road, in the
-                  Bugis–Kallang corridor of central Singapore. Classes run seven
-                  days a week, and our campus is an easy walk from three MRT
+                  Bugis–Kallang corridor of central Singapore. The campus is
+                  open daily except Thursday, and is an easy walk from three MRT
                   stations.
                 </p>
 
@@ -551,9 +553,7 @@ export default function HomeContent() {
                       <div className="text-xs font-bold uppercase tracking-widest text-(--brand)">
                         Opening Hours
                       </div>
-                      <div className="mt-0.5 text-sm font-semibold text-slate-800">
-                        Monday – Sunday · 9:00am – 6:00pm
-                      </div>
+                      <CampusHours />
                     </div>
                   </div>
                 </div>
@@ -565,8 +565,7 @@ export default function HomeContent() {
                   <ul className="mt-3 space-y-2">
                     {[
                       "Nicoll Highway MRT (CC5) — about 5 minutes' walk via Republic Avenue",
-                      "Bugis MRT (EW12 / DT14) — about 10 minutes' walk along Beach Road",
-                      "Lavender MRT (EW11) — about 12 minutes' walk via Crawford Street",
+                      "Bugis MRT (EW12 / DT14) — about 10 minutes' walk along Beach Road"
                     ].map((line) => (
                       <li
                         key={line}
@@ -630,6 +629,14 @@ export default function HomeContent() {
                     </div>
                   ))}
                 </div>
+
+                <Link
+                  href="/contact"
+                  className="mt-5 inline-flex items-center text-sm font-semibold text-[#193764] hover:text-(--brand)"
+                >
+                  View all department numbers
+                  <FiArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                </Link>
               </div>
 
               <ContactForm />
