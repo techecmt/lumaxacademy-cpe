@@ -117,34 +117,33 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="mt-5 space-y-2">
+                  <div className="mt-5 space-y-3">
                     {dept.phones.map((phone) => (
-                      <a
-                        key={phone.href}
-                        href={phone.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`WhatsApp ${phone.name ?? dept.title} at ${phone.display}`}
-                        className="flex items-center justify-between gap-3 rounded-2xl bg-(--surface-2) px-4 py-3 ring-1 ring-black/5 transition hover:ring-[#faa426]/40"
+                      <div
+                        key={phone.name ?? phone.numbers[0]?.href}
+                        className="space-y-2"
                       >
-                        <span>
-                          {phone.name ? (
-                            <span className="block text-xs font-semibold text-slate-500">
-                              {phone.name}
-                            </span>
-                          ) : (
-                            <span className="block text-xs font-semibold text-slate-500">
-                              WhatsApp
-                            </span>
-                          )}
-                          <span className="mt-0.5 block text-sm font-extrabold text-[#193764]">
-                            {phone.display}
-                          </span>
+                        <span className="block text-xs font-semibold text-slate-500">
+                          {phone.name ?? "WhatsApp"}
                         </span>
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#25D366] text-white shadow-sm">
-                          <FaWhatsapp className="h-4 w-4" aria-hidden />
-                        </span>
-                      </a>
+                        {phone.numbers.map((num) => (
+                          <a
+                            key={num.href}
+                            href={num.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`WhatsApp ${phone.name ?? dept.title} at ${num.display}`}
+                            className="flex items-center justify-between gap-3 rounded-2xl bg-(--surface-2) px-4 py-3 ring-1 ring-black/5 transition hover:ring-[#faa426]/40"
+                          >
+                            <span className="text-sm font-extrabold text-[#193764]">
+                              {num.display}
+                            </span>
+                            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#25D366] text-white shadow-sm">
+                              <FaWhatsapp className="h-4 w-4" aria-hidden />
+                            </span>
+                          </a>
+                        ))}
+                      </div>
                     ))}
                   </div>
 

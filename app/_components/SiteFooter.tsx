@@ -196,31 +196,38 @@ export default function SiteFooter({ className }: FooterProps) {
                   <div className="text-sm font-extrabold leading-snug text-white">
                     {dept.title}
                   </div>
-                  <div className="mt-2 space-y-1.5">
+                  <div className="mt-2 space-y-2">
                     {dept.phones.map((phone) => (
-                      <a
-                        key={phone.href}
-                        href={phone.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block text-sm font-bold text-white transition hover:text-[#faa426]"
+                      <div
+                        key={phone.name ?? phone.numbers[0]?.href}
+                        className="text-sm"
                       >
-                        {phone.name ? (
-                          <>
-                            <span className="font-semibold text-white/60">
-                              {phone.name}:{" "}
+                        <span className="block text-xs font-semibold text-white/55">
+                          {phone.name ? `${phone.name}:` : "For:"}
+                        </span>
+                        <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                          {phone.numbers.map((num, index) => (
+                            <span
+                              key={num.href}
+                              className="inline-flex items-center gap-2"
+                            >
+                              {index > 0 ? (
+                                <span className="text-white/35" aria-hidden>
+                                  /
+                                </span>
+                              ) : null}
+                              <a
+                                href={num.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-bold text-white transition hover:text-[#faa426]"
+                              >
+                                {num.display}
+                              </a>
                             </span>
-                            {phone.display}
-                          </>
-                        ) : (
-                          <>
-                            <span className="text-xs font-semibold text-white/55">
-                              For:{" "}
-                            </span>
-                            {phone.display}
-                          </>
-                        )}
-                      </a>
+                          ))}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>
