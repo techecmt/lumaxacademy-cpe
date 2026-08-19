@@ -9,6 +9,7 @@ import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { SiTiktok, SiYoutube } from "react-icons/si";
 import {
   FiChevronRight,
+  FiLogIn,
   FiMapPin,
   FiMail,
   FiMenu,
@@ -162,7 +163,16 @@ export default function SiteHeader() {
               </div>
             </nav>
 
-            <div className="hidden shrink-0 lg:block">
+            <div className="hidden shrink-0 items-center gap-2 lg:flex">
+              <a
+                href="https://onlineportal.lumaxacademy.com.sg/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center gap-2 rounded-2xl bg-linear-to-r from-(--brand) to-[#ffd38a] px-4 text-sm font-extrabold text-[#193764] shadow-lg shadow-[#faa426]/30 ring-1 ring-[#faa426]/35 transition hover:-translate-y-0.5 hover:brightness-105"
+              >
+                <FiLogIn className="h-4 w-4" aria-hidden />
+                Student Portal
+              </a>
               <Link
                 href="/contact"
                 className="inline-flex h-11 items-center rounded-2xl bg-(--brand-2) px-5 text-sm font-extrabold text-white shadow-lg shadow-[#193764]/20 transition hover:brightness-110"
@@ -299,10 +309,20 @@ export default function SiteHeader() {
             </nav>
 
             <div className="border-t border-(--border) bg-(--surface-2) px-3 py-3">
+              <a
+                href="https://onlineportal.lumaxacademy.com.sg/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-(--brand) to-[#ffd38a] px-5 py-2.5 text-sm font-extrabold text-[#193764] shadow-md shadow-[#faa426]/25 ring-1 ring-[#faa426]/35"
+              >
+                <FiLogIn className="h-4 w-4" aria-hidden />
+                Student Portal
+              </a>
               <Link
                 href="/contact"
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center justify-center rounded-xl bg-(--brand) px-5 py-2.5 text-sm font-extrabold text-[#193764] shadow-md shadow-[#faa426]/20"
+                className="mt-2 flex items-center justify-center rounded-xl bg-(--brand) px-5 py-2.5 text-sm font-extrabold text-[#193764] shadow-md shadow-[#faa426]/20"
               >
                 Enquire Now
               </Link>
