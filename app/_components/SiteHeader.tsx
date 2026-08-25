@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { IconType } from "react-icons";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { SiTiktok, SiYoutube } from "react-icons/si";
 import {
+  FiChevronDown,
   FiChevronRight,
   FiLogIn,
   FiMapPin,
@@ -17,22 +18,52 @@ import {
   FiX,
 } from "react-icons/fi";
 
-const navItems = [
-  { label: "About Us", href: "/about" },
+type NavLink = { label: string; href: string };
+type NavItem = NavLink & { children?: NavLink[] };
+
+const navItems: NavItem[] = [
+  {
+    label: "About Us",
+    href: "/about",
+    children: [
+      { label: "Who We Are", href: "/about" },
+      { label: "Our Teachers", href: "/our-teachers" },
+      {
+        label: "Academic & Examination Board",
+        href: "/about#academic-board",
+      },
+    ],
+  },
   { label: "Student Affairs", href: "/student-affairs" },
   { label: "Courses", href: "/courses" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
-] as const;
+];
+
+function navPath(href: string) {
+  return href.split("#")[0];
+}
 
 function isNavActive(href: string, pathname: string) {
-  return pathname === href || pathname.startsWith(`${href}/`);
+  const path = navPath(href);
+  return pathname === path || pathname.startsWith(`${path}/`);
+}
+
+function isNavItemActive(item: NavItem, pathname: string) {
+  if (isNavActive(item.href, pathname)) return true;
+  return item.children?.some((child) => isNavActive(child.href, pathname));
 }
 
 export default function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [expandedMobileNav, setExpandedMobileNav] = useState<string | null>(null);
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    setExpandedMobileNav(null);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -44,11 +75,11 @@ export default function SiteHeader() {
   useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
+      if (e.key === "Escape") closeMenu();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [menuOpen]);
+  }, [menuOpen, closeMenu]);
 
   const topBarLeft = useMemo(
     () => [
@@ -138,13 +169,65 @@ export default function SiteHeader() {
             <nav className="hidden flex-1 justify-center lg:flex">
               <div className="flex items-center gap-1">
                 {navItems.map((item) => {
-                  const active = isNavActive(item.href, pathname);
+                  const active = isNavItemActive(item, pathname);
                   const className = [
                     "rounded-xl px-3 py-2 text-sm font-semibold",
                     active
                       ? "bg-[#fff7e8] text-[#193764]"
                       : "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
                   ].join(" ");
+
+                  if (item.children?.length) {
+                    return (
+                      <div
+                        key={item.label}
+                        className="group relative"
+                      >
+                        <button
+                          type="button"
+                          className={[
+                            className,
+                            "inline-flex items-center gap-1",
+                          ].join(" ")}
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          {item.label}
+                          <FiChevronDown
+                            className="h-4 w-4 transition group-hover:rotate-180 group-focus-within:rotate-180"
+                            aria-hidden
+                          />
+                        </button>
+                        <div
+                          className="pointer-events-none absolute left-0 top-full z-50 min-w-[240px] pt-2 opacity-0 translate-y-1 transition group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0"
+                        >
+                          <div className="rounded-2xl border border-(--border) bg-white p-2 shadow-[0_18px_50px_-24px_rgba(2,6,23,0.45)] ring-1 ring-black/5">
+                            {item.children.map((child) => {
+                              const childActive = isNavActive(
+                                child.href,
+                                pathname
+                              );
+                              return (
+                                <Link
+                                  key={child.label}
+                                  href={child.href}
+                                  className={[
+                                    "block rounded-xl px-3 py-2.5 text-sm font-semibold transition",
+                                    childActive
+                                      ? "bg-[#fff7e8] text-[#193764]"
+                                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
+                                  ].join(" ")}
+                                >
+                                  {child.label}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+
                   return item.href.startsWith("/") &&
                     !item.href.startsWith("/#") ? (
                     <Link
@@ -208,7 +291,7 @@ export default function SiteHeader() {
           <button
             type="button"
             className="absolute inset-0 bg-slate-950/55 backdrop-blur-sm"
-            onClick={() => setMenuOpen(false)}
+            onClick={closeMenu}
             aria-label="Close menu overlay"
           />
           <div className="absolute right-0 top-0 flex h-full w-[min(340px,90vw)] flex-col overflow-hidden rounded-l-4xl bg-white shadow-2xl">
@@ -217,7 +300,7 @@ export default function SiteHeader() {
               <div className="relative flex items-center justify-between gap-3">
                 <Link
                   href="/"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeMenu}
                   className="rounded-xl bg-white/95 px-2.5 py-1.5 shadow-sm"
                 >
                   <Image
@@ -231,7 +314,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/10 text-white ring-1 ring-white/15"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeMenu}
                   aria-label="Close menu"
                 >
                   <FiX className="h-4 w-4" aria-hidden />
@@ -270,7 +353,8 @@ export default function SiteHeader() {
             <nav className="flex-1 overflow-y-auto px-3 py-3">
               <div className="grid gap-1.5">
                 {navItems.map((item) => {
-                  const active = isNavActive(item.href, pathname);
+                  const active = isNavItemActive(item, pathname);
+                  const expanded = expandedMobileNav === item.label;
                   const cls = [
                     "group flex items-center justify-between rounded-xl border px-3.5 py-3 text-[13px] font-extrabold text-[#193764] shadow-sm shadow-black/4 transition active:scale-[0.98]",
                     active
@@ -282,12 +366,77 @@ export default function SiteHeader() {
                       <FiChevronRight className="h-3.5 w-3.5" aria-hidden />
                     </span>
                   );
+
+                  if (item.children?.length) {
+                    return (
+                      <div key={item.label} className="grid gap-1.5">
+                        <button
+                          type="button"
+                          className={cls}
+                          aria-expanded={expanded}
+                          onClick={() =>
+                            setExpandedMobileNav(expanded ? null : item.label)
+                          }
+                        >
+                          <span>{item.label}</span>
+                          <span
+                            className={[
+                              "grid h-7 w-7 place-items-center rounded-lg bg-[#fff7e8] text-(--brand) transition",
+                              expanded
+                                ? "bg-(--brand) text-white"
+                                : "group-hover:bg-(--brand) group-hover:text-white",
+                            ].join(" ")}
+                          >
+                            <FiChevronDown
+                              className={[
+                                "h-3.5 w-3.5 transition",
+                                expanded ? "rotate-180" : "",
+                              ].join(" ")}
+                              aria-hidden
+                            />
+                          </span>
+                        </button>
+                        {expanded ? (
+                          <div className="grid gap-1 pl-2">
+                            {item.children.map((child) => {
+                              const childActive = isNavActive(
+                                child.href,
+                                pathname
+                              );
+                              return (
+                                <Link
+                                  key={child.label}
+                                  href={child.href}
+                                  onClick={() => {
+                                    closeMenu();
+                                  }}
+                                  className={[
+                                    "flex items-center justify-between rounded-xl border px-3.5 py-2.5 text-[12px] font-bold text-[#193764] shadow-sm shadow-black/4 transition active:scale-[0.98]",
+                                    childActive
+                                      ? "border-[#faa426]/40 bg-[#fff7e8]"
+                                      : "border-(--border) bg-white hover:border-[#faa426]/30 hover:bg-[#fff7e8]",
+                                  ].join(" ")}
+                                >
+                                  {child.label}
+                                  <FiChevronRight
+                                    className="h-3.5 w-3.5 text-(--brand)"
+                                    aria-hidden
+                                  />
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        ) : null}
+                      </div>
+                    );
+                  }
+
                   return item.href.startsWith("/") &&
                     !item.href.startsWith("/#") ? (
                     <Link
                       key={item.label}
                       href={item.href}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={closeMenu}
                       className={cls}
                     >
                       {item.label}
@@ -297,7 +446,7 @@ export default function SiteHeader() {
                     <a
                       key={item.label}
                       href={item.href}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={closeMenu}
                       className={cls}
                     >
                       {item.label}
@@ -313,7 +462,7 @@ export default function SiteHeader() {
                 href="https://onlineportal.lumaxacademy.com.sg/login"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMenu}
                 className="flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-(--brand) to-[#ffd38a] px-5 py-2.5 text-sm font-extrabold text-[#193764] shadow-md shadow-[#faa426]/25 ring-1 ring-[#faa426]/35"
               >
                 <FiLogIn className="h-4 w-4" aria-hidden />
@@ -321,7 +470,7 @@ export default function SiteHeader() {
               </a>
               <Link
                 href="/contact"
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMenu}
                 className="mt-2 flex items-center justify-center rounded-xl bg-(--brand) px-5 py-2.5 text-sm font-extrabold text-[#193764] shadow-md shadow-[#faa426]/20"
               >
                 Enquire Now

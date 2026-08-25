@@ -20,7 +20,10 @@ export default function SiteFooter({ className }: FooterProps) {
 
   const companyLinks = [
     { label: "About Us", href: "/about" },
+    { label: "Our Teachers", href: "/our-teachers" },
+    { label: "Classroom Facilities", href: "/classroom-facilities" },
     { label: "Student Affairs", href: "/student-affairs" },
+    { label: "Fee Protection Scheme", href: "/fee-protection-scheme" },
     { label: "All Courses", href: "/courses" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
