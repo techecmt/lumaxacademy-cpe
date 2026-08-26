@@ -8,8 +8,13 @@ import type { IconType } from "react-icons";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { SiTiktok, SiYoutube } from "react-icons/si";
 import {
+  FiAward,
+  FiBookOpen,
   FiChevronDown,
   FiChevronRight,
+  FiClock,
+  FiGrid,
+  FiLayers,
   FiLogIn,
   FiMapPin,
   FiMail,
@@ -17,6 +22,8 @@ import {
   FiPhone,
   FiX,
 } from "react-icons/fi";
+import { allCourses } from "../data/coursedata";
+import { allDiplomaCourses } from "../data/diplomacoursedata";
 
 type NavLink = { label: string; href: string };
 type NavItem = NavLink & { children?: NavLink[] };
@@ -50,6 +57,12 @@ function isNavActive(href: string, pathname: string) {
 }
 
 function isNavItemActive(item: NavItem, pathname: string) {
+  if (
+    item.label === "Courses" &&
+    (pathname.startsWith("/courses") || pathname.startsWith("/diploma-courses"))
+  ) {
+    return true;
+  }
   if (isNavActive(item.href, pathname)) return true;
   return item.children?.some((child) => isNavActive(child.href, pathname));
 }
@@ -176,6 +189,208 @@ export default function SiteHeader() {
                       ? "bg-[#fff7e8] text-[#193764]"
                       : "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
                   ].join(" ");
+
+                  if (item.label === "Courses") {
+                    return (
+                      <div key={item.label} className="group relative">
+                        <button
+                          type="button"
+                          className={[
+                            className,
+                            "inline-flex items-center gap-1",
+                          ].join(" ")}
+                          aria-haspopup="true"
+                        >
+                          {item.label}
+                          <FiChevronDown
+                            className="h-4 w-4 transition duration-300 group-hover:rotate-180 group-focus-within:rotate-180"
+                            aria-hidden
+                          />
+                        </button>
+
+                        <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[min(920px,calc(100vw-2rem))] -translate-x-1/2 translate-y-2 pt-3 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                          <div className="overflow-hidden rounded-[28px] border border-slate-200/80 bg-white shadow-[0_30px_90px_-35px_rgba(2,6,23,0.5)] ring-1 ring-black/5">
+                            <div className="grid grid-cols-[0.85fr_1.35fr]">
+                              <div className="relative overflow-hidden bg-linear-to-br from-[#102b50] via-[#193764] to-[#0c203b] p-6 text-white">
+                                <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-(--brand)/20 blur-3xl" />
+                                <div
+                                  className="absolute inset-0 opacity-[0.06]"
+                                  style={{
+                                    backgroundImage:
+                                      "linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px)",
+                                    backgroundSize: "32px 32px",
+                                  }}
+                                />
+                                <div className="relative">
+                                  <div className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-(--brand)">
+                                    <FiAward className="h-4 w-4" aria-hidden />
+                                    Diploma Programmes
+                                  </div>
+                                  <p className="mt-3 text-xl font-extrabold leading-tight">
+                                    Build deeper expertise for your next career
+                                    move.
+                                  </p>
+                                  <p className="mt-2 text-xs leading-relaxed text-white/60">
+                                    Industry-relevant, part-time diplomas created
+                                    for working learners and ambitious career
+                                    switchers.
+                                  </p>
+
+                                  <div className="mt-5 grid gap-2.5">
+                                    {allDiplomaCourses.map((course) => {
+                                      const href = `/diploma-courses/${course.id}`;
+                                      const courseActive = isNavActive(
+                                        href,
+                                        pathname,
+                                      );
+                                      return (
+                                        <Link
+                                          key={course.id}
+                                          href={href}
+                                          className={[
+                                            "group/course rounded-2xl border p-3.5 transition",
+                                            courseActive
+                                              ? "border-(--brand)/60 bg-(--brand)/15"
+                                              : "border-white/10 bg-white/7 hover:border-(--brand)/35 hover:bg-white/11",
+                                          ].join(" ")}
+                                        >
+                                          <div className="flex items-start gap-3">
+                                            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-(--brand) text-[#193764] shadow-lg shadow-[#faa426]/20">
+                                              <FiLayers
+                                                className="h-4 w-4"
+                                                aria-hidden
+                                              />
+                                            </span>
+                                            <div className="min-w-0">
+                                              <div className="text-[13px] font-extrabold leading-snug text-white">
+                                                {course.title}
+                                              </div>
+                                              <div className="mt-1.5 flex flex-wrap gap-2 text-[10px] font-bold text-white/50">
+                                                <span>{course.duration}</span>
+                                                <span aria-hidden>·</span>
+                                                <span>{course.hours}</span>
+                                                <span aria-hidden>·</span>
+                                                <span>
+                                                  {course.moduleCount} Modules
+                                                </span>
+                                              </div>
+                                            </div>
+                                            <FiChevronRight
+                                              className="mt-1 h-4 w-4 shrink-0 text-(--brand) transition group-hover/course:translate-x-0.5"
+                                              aria-hidden
+                                            />
+                                          </div>
+                                        </Link>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="p-6">
+                                <div className="flex items-end justify-between gap-4 border-b border-slate-100 pb-4">
+                                  <div>
+                                    <div className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-(--brand)">
+                                      <FiBookOpen
+                                        className="h-4 w-4"
+                                        aria-hidden
+                                      />
+                                      Certificate Courses
+                                    </div>
+                                    <p className="mt-1.5 text-xs text-slate-500">
+                                      Practical skills for faster career growth
+                                    </p>
+                                  </div>
+                                  <Link
+                                    href="/courses"
+                                    className="inline-flex shrink-0 items-center gap-1 text-xs font-extrabold text-[#193764] transition hover:text-(--brand)"
+                                  >
+                                    View all
+                                    <FiChevronRight
+                                      className="h-3.5 w-3.5"
+                                      aria-hidden
+                                    />
+                                  </Link>
+                                </div>
+
+                                <div className="mt-4 grid grid-cols-2 gap-2">
+                                  {allCourses.map((course) => {
+                                    const href = `/courses/${course.id}`;
+                                    const courseActive = isNavActive(
+                                      href,
+                                      pathname,
+                                    );
+                                    return (
+                                      <Link
+                                        key={course.id}
+                                        href={href}
+                                        className={[
+                                          "group/course flex min-h-20 items-start gap-3 rounded-2xl border p-3 transition",
+                                          courseActive
+                                            ? "border-(--brand)/45 bg-[#fff7e8]"
+                                            : "border-slate-100 bg-slate-50/70 hover:-translate-y-0.5 hover:border-(--brand)/30 hover:bg-[#fff7e8]",
+                                        ].join(" ")}
+                                      >
+                                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-(--brand) shadow-sm ring-1 ring-black/5 transition group-hover/course:bg-(--brand) group-hover/course:text-white">
+                                          <FiBookOpen
+                                            className="h-4 w-4"
+                                            aria-hidden
+                                          />
+                                        </span>
+                                        <div className="min-w-0">
+                                          <div className="line-clamp-2 text-[12px] font-extrabold leading-snug text-[#193764]">
+                                            {course.title}
+                                          </div>
+                                          <div className="mt-1.5 flex items-center gap-1.5 text-[10px] font-bold text-slate-400">
+                                            <FiClock
+                                              className="h-3 w-3 text-(--brand)"
+                                              aria-hidden
+                                            />
+                                            {course.hours}
+                                            <span aria-hidden>·</span>
+                                            {course.moduleCount} Modules
+                                          </div>
+                                        </div>
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+
+                                <div className="mt-4 flex items-center justify-between gap-4 rounded-2xl bg-[#fff7e8] px-4 py-3 ring-1 ring-[#faa426]/15">
+                                  <div className="flex items-center gap-3">
+                                    <span className="grid h-9 w-9 place-items-center rounded-xl bg-(--brand) text-white">
+                                      <FiGrid
+                                        className="h-4 w-4"
+                                        aria-hidden
+                                      />
+                                    </span>
+                                    <div>
+                                      <div className="text-xs font-extrabold text-[#193764]">
+                                        Not sure which course suits you?
+                                      </div>
+                                      <div className="text-[10px] text-slate-500">
+                                        Our programme advisers can help.
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <Link
+                                    href="/contact"
+                                    className="inline-flex shrink-0 items-center gap-1 rounded-xl bg-[#193764] px-3.5 py-2 text-[11px] font-extrabold text-white transition hover:brightness-110"
+                                  >
+                                    Get guidance
+                                    <FiChevronRight
+                                      className="h-3 w-3"
+                                      aria-hidden
+                                    />
+                                  </Link>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
 
                   if (item.children?.length) {
                     return (
@@ -366,6 +581,137 @@ export default function SiteHeader() {
                       <FiChevronRight className="h-3.5 w-3.5" aria-hidden />
                     </span>
                   );
+
+                  if (item.label === "Courses") {
+                    return (
+                      <div key={item.label} className="grid gap-1.5">
+                        <button
+                          type="button"
+                          className={cls}
+                          aria-expanded={expanded}
+                          onClick={() =>
+                            setExpandedMobileNav(expanded ? null : item.label)
+                          }
+                        >
+                          <span className="flex items-center gap-2.5">
+                            <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#fff7e8] text-(--brand)">
+                              <FiGrid className="h-4 w-4" aria-hidden />
+                            </span>
+                            {item.label}
+                          </span>
+                          <span
+                            className={[
+                              "grid h-7 w-7 place-items-center rounded-lg bg-[#fff7e8] text-(--brand) transition",
+                              expanded
+                                ? "bg-(--brand) text-white"
+                                : "group-hover:bg-(--brand) group-hover:text-white",
+                            ].join(" ")}
+                          >
+                            <FiChevronDown
+                              className={[
+                                "h-3.5 w-3.5 transition",
+                                expanded ? "rotate-180" : "",
+                              ].join(" ")}
+                              aria-hidden
+                            />
+                          </span>
+                        </button>
+
+                        {expanded ? (
+                          <div className="overflow-hidden rounded-2xl border border-(--border) bg-slate-50 shadow-inner shadow-black/3">
+                            <div className="bg-linear-to-br from-[#193764] to-[#10213d] p-3.5 text-white">
+                              <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.16em] text-(--brand)">
+                                <FiAward className="h-3.5 w-3.5" aria-hidden />
+                                Diploma Programmes
+                              </div>
+                              <div className="mt-2 grid gap-2">
+                                {allDiplomaCourses.map((course) => {
+                                  const href = `/diploma-courses/${course.id}`;
+                                  return (
+                                    <Link
+                                      key={course.id}
+                                      href={href}
+                                      onClick={closeMenu}
+                                      className="flex items-start gap-2.5 rounded-xl border border-white/10 bg-white/8 p-3 transition active:scale-[0.99]"
+                                    >
+                                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-(--brand) text-[#193764]">
+                                        <FiLayers
+                                          className="h-3.5 w-3.5"
+                                          aria-hidden
+                                        />
+                                      </span>
+                                      <div className="min-w-0 flex-1">
+                                        <div className="text-[11px] font-extrabold leading-snug">
+                                          {course.title}
+                                        </div>
+                                        <div className="mt-1 text-[9px] font-bold text-white/50">
+                                          {course.duration} · {course.hours} ·{" "}
+                                          {course.moduleCount} Modules
+                                        </div>
+                                      </div>
+                                      <FiChevronRight
+                                        className="mt-1 h-3.5 w-3.5 shrink-0 text-(--brand)"
+                                        aria-hidden
+                                      />
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            <div className="p-3.5">
+                              <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.16em] text-(--brand)">
+                                  <FiBookOpen
+                                    className="h-3.5 w-3.5"
+                                    aria-hidden
+                                  />
+                                  Certificate Courses
+                                </div>
+                                <Link
+                                  href="/courses"
+                                  onClick={closeMenu}
+                                  className="text-[10px] font-extrabold text-[#193764]"
+                                >
+                                  View all
+                                </Link>
+                              </div>
+                              <div className="mt-2 grid gap-1.5">
+                                {allCourses.map((course) => (
+                                  <Link
+                                    key={course.id}
+                                    href={`/courses/${course.id}`}
+                                    onClick={closeMenu}
+                                    className="flex items-center gap-2.5 rounded-xl border border-slate-100 bg-white p-2.5 text-[#193764] shadow-sm shadow-black/3 transition active:scale-[0.99]"
+                                  >
+                                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#fff7e8] text-(--brand)">
+                                      <FiBookOpen
+                                        className="h-3.5 w-3.5"
+                                        aria-hidden
+                                      />
+                                    </span>
+                                    <div className="min-w-0 flex-1">
+                                      <div className="text-[10.5px] font-extrabold leading-snug">
+                                        {course.title}
+                                      </div>
+                                      <div className="mt-0.5 text-[9px] font-bold text-slate-400">
+                                        {course.hours} · {course.moduleCount}{" "}
+                                        Modules
+                                      </div>
+                                    </div>
+                                    <FiChevronRight
+                                      className="h-3.5 w-3.5 shrink-0 text-(--brand)"
+                                      aria-hidden
+                                    />
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
+                    );
+                  }
 
                   if (item.children?.length) {
                     return (

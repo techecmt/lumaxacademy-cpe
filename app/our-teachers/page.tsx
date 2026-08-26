@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SiteFooter from "../_components/SiteFooter";
 import SiteHeader from "../_components/SiteHeader";
 import {
-  FiArrowRight,
   FiAward,
   FiBookOpen,
   FiCheck,
-  FiClock,
   FiUser,
   FiUsers,
 } from "react-icons/fi";
 import JsonLd from "../_components/JsonLd";
 import { breadcrumbJsonLd } from "../data/seo";
+import { teachers } from "../data/teachers";
 
 export const metadata: Metadata = {
   title: "Our Teachers — Trainers & Assessors",
@@ -103,8 +101,8 @@ export default function OurTeachersPage() {
           ))}
         </section>
 
-        <section className="mt-10 grid gap-6 lg:grid-cols-3">
-          <div className="rounded-3xl border border-(--border) bg-white p-6 shadow-[0_18px_60px_-55px_rgba(2,6,23,0.45)] lg:col-span-2">
+        <section className="mt-10">
+          <div className="rounded-3xl border border-(--border) bg-white p-6 shadow-[0_18px_60px_-55px_rgba(2,6,23,0.45)]">
             <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
               TEACHING TEAM
             </div>
@@ -112,14 +110,70 @@ export default function OurTeachersPage() {
               Meet our trainers
             </h2>
 
-            <div className="mt-6 rounded-3xl border border-dashed border-(--border) bg-(--surface-2) px-6 py-14 text-center">
-              <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-white text-(--brand) ring-1 ring-black/5">
-                <FiClock className="h-5 w-5" aria-hidden />
-              </div>
-              <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-slate-600">
-                Individual trainer profiles — name, qualifications, and teaching
-                areas — are being finalised and will be published here shortly.
-              </p>
+            <div className="mt-6 space-y-6">
+              {teachers.map((teacher) => (
+                <article
+                  key={teacher.name}
+                  className="rounded-3xl border border-(--border) bg-(--surface-2) p-6"
+                >
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                    <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-white text-(--brand) ring-1 ring-black/5">
+                      <FiUser className="h-7 w-7" aria-hidden />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <h3 className="text-lg font-extrabold text-slate-950">
+                          {teacher.name}
+                        </h3>
+                        <span className="rounded-full bg-(--brand)/10 px-3 py-1 text-xs font-semibold text-(--brand)">
+                          {teacher.employment}
+                        </span>
+                      </div>
+                      <div className="mt-1 space-y-2">
+                        {teacher.credentials.map((credential) => (
+                          <div key={`${credential.qualification}-${credential.institution}`}>
+                            <p className="text-sm font-semibold text-slate-700">
+                              {credential.qualification}
+                            </p>
+                            <p className="mt-0.5 text-sm text-slate-500">
+                              {credential.institution}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {teacher.courses.length > 0 ? (
+                    <div className="mt-6 border-t border-(--border) pt-6">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <h4 className="text-sm font-extrabold tracking-wide text-slate-950">
+                          Courses &amp; Modules
+                        </h4>
+                        <span className="text-xs font-semibold text-slate-500">
+                          {teacher.courses.length} Courses
+                        </span>
+                      </div>
+                      <ul className="mt-4 space-y-2">
+                        {teacher.courses.map((course) => (
+                          <li
+                            key={course.title}
+                            className="flex items-start justify-between gap-4 rounded-2xl bg-white px-4 py-3 ring-1 ring-black/5"
+                          >
+                            <span className="text-sm font-medium text-slate-700">
+                              {course.title}
+                            </span>
+                            <span className="shrink-0 text-xs font-semibold text-slate-500">
+                              {course.moduleCount}{" "}
+                              {course.moduleCount === 1 ? "module" : "modules"}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </article>
+              ))}
             </div>
 
             <div className="mt-6 flex items-start gap-3 rounded-2xl border border-(--border) bg-(--surface-2) p-4">
@@ -133,30 +187,6 @@ export default function OurTeachersPage() {
               </p>
             </div>
           </div>
-
-          <aside className="rounded-3xl border border-(--border) bg-(--surface-2) p-6">
-            <div className="text-[13px] font-semibold tracking-widest text-(--brand)">
-              QUICK LINKS
-            </div>
-            <div className="mt-5 space-y-3">
-              {[
-                { label: "About Lumax Academy", href: "/about" },
-                { label: "Academic Board", href: "/about#academic-board" },
-                { label: "Classroom facilities", href: "/classroom-facilities" },
-                { label: "Explore courses", href: "/courses" },
-                { label: "Contact us", href: "/contact" },
-              ].map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-800 ring-1 ring-black/5 hover:text-(--brand)"
-                >
-                  {l.label}
-                  <FiArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-              ))}
-            </div>
-          </aside>
         </section>
       </main>
 
