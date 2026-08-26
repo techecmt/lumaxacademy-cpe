@@ -585,8 +585,7 @@ export default function MechanicalEngineeringDiplomaPage() {
                   <p className="text-sm leading-relaxed text-white/80">
                     The diploma is awarded by{" "}
                     <strong className="text-white">
-                      Edusphere College of Management and Technology Pte Ltd
-                    </strong>
+LUMAX ACADEMY PTE LTD                    </strong>
                     .
                   </p>
                 </div>
