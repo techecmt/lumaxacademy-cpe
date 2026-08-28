@@ -23,6 +23,10 @@ export default function SiteFooter({ className }: FooterProps) {
     { label: "Our Teachers", href: "/our-teachers" },
     { label: "Classroom Facilities", href: "/classroom-facilities" },
     { label: "Student Affairs", href: "/student-affairs" },
+    {
+      label: "Essential Resources & Support",
+      href: "/essential-resources-and-support-for-students",
+    },
     { label: "Fee Protection Scheme", href: "/fee-protection-scheme" },
     { label: "All Courses", href: "/courses" },
     { label: "Blog", href: "/blog" },
