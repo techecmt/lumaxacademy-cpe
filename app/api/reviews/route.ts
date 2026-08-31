@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+import {
+  IS_CPE_PREVIEW,
+  PREVIEW_WRITE_DISABLED_MESSAGE,
+} from "../../data/preview";
 
 type ReviewRequest = {
   name?: unknown;
@@ -90,6 +94,13 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  if (IS_CPE_PREVIEW) {
+    return NextResponse.json(
+      { error: PREVIEW_WRITE_DISABLED_MESSAGE },
+      { status: 403 }
+    );
+  }
+
   const cfg = getSupabaseConfig();
 
   if (!cfg) {

@@ -1,7 +1,22 @@
+function resolveSiteUrl() {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  if (explicit) return explicit;
+
+  const vercelHost = (
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL ?? ""
+  )
+    .trim()
+    .replace(/^https?:\/\//, "")
+    .replace(/\/$/, "");
+  if (vercelHost) return `https://${vercelHost}`;
+
+  return "http://localhost:3000";
+}
+
 export const SITE = {
   name: "Lumax Academy",
   legalName: "Lumax Academy Pte Ltd",
-  url: "https://www.lumaxacademy.com.sg",
+  url: resolveSiteUrl(),
   phone: "+65 8221 6423",
   phoneIntl: "+6582216423",
   email: "info@lumaxacademy.com.sg",

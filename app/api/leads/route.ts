@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+import {
+  IS_CPE_PREVIEW,
+  PREVIEW_WRITE_DISABLED_MESSAGE,
+} from "../../data/preview";
 
 /** Default `public.colleges` row for website enquiries. Override in env if the id differs per project. */
 const LUMAX_ACADEMY_COLLEGE_ID =
@@ -21,6 +25,13 @@ function text(value: unknown) {
 }
 
 export async function POST(request: Request) {
+  if (IS_CPE_PREVIEW) {
+    return NextResponse.json(
+      { error: PREVIEW_WRITE_DISABLED_MESSAGE },
+      { status: 403 }
+    );
+  }
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey =
     process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SECRET_KEY;
