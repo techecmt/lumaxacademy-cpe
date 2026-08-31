@@ -44,10 +44,10 @@ const ORG_CHART: {
   width: number;
   height: number;
 } = {
-  src: null,
-  alt: "Lumax Academy organisation chart",
-  width: 1600,
-  height: 1000,
+  src: "/organisation-chart-2026.png",
+  alt: "Lumax Academy organisation chart 2026",
+  width: 3750,
+  height: 2400,
 };
 
 const boardIcons: Record<string, IconType> = {
@@ -491,25 +491,33 @@ export default function AboutContent() {
                 delay={110}
                 animateBy="words"
                 direction="top"
-                className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
+                className="mt-3 justify-center text-center text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl"
               />
-              <p className="mt-4 text-base leading-relaxed text-slate-600">
+              <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-balance text-slate-600">
                 How responsibility flows across governance, academic delivery,
                 and student support at Lumax Academy.
               </p>
             </div>
 
-            <div className="mt-10 overflow-hidden rounded-4xl border border-(--border) bg-white p-4 shadow-[0_18px_70px_-65px_rgba(2,6,23,0.65)] sm:p-6">
+            <div className="mt-10 overflow-hidden rounded-4xl border border-(--border) bg-white p-3 shadow-[0_18px_70px_-65px_rgba(2,6,23,0.65)] sm:p-5">
               {ORG_CHART.src ? (
                 <div className="overflow-x-auto">
-                  <Image
-                    src={ORG_CHART.src}
-                    alt={ORG_CHART.alt}
-                    width={ORG_CHART.width}
-                    height={ORG_CHART.height}
-                    sizes="(min-width: 1280px) 1200px, 100vw"
-                    className="mx-auto h-auto w-full min-w-[640px] rounded-2xl"
-                  />
+                  <a
+                    href={ORG_CHART.src}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block min-w-[72rem]"
+                  >
+                    <Image
+                      src={ORG_CHART.src}
+                      alt={ORG_CHART.alt}
+                      width={ORG_CHART.width}
+                      height={ORG_CHART.height}
+                      sizes="(min-width: 1280px) 1200px, 72rem"
+                      unoptimized
+                      className="mx-auto h-auto w-full rounded-2xl object-contain"
+                    />
+                  </a>
                 </div>
               ) : (
                 <div className="grid place-items-center rounded-3xl border border-dashed border-(--border) bg-(--surface-2) px-6 py-16 text-center">
