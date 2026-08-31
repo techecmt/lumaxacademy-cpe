@@ -259,7 +259,7 @@ export default function SiteFooter({ className }: FooterProps) {
             Copyright © {new Date().getFullYear()} Lumax Academy. All Rights Reserved.
           </div>
           <div className="flex items-center gap-3">
-            <span className="font-semibold text-white">Follow Us:</span>
+            <span className="font-semibold text-white">1Follow Us:</span>
             {socials.map((s) => (
               <a
                 key={s.label}
