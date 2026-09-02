@@ -59,6 +59,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: absoluteUrl("/campus-and-facilities"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: absoluteUrl("/classroom-facilities"),
       lastModified,
       changeFrequency: "monthly",

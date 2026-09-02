@@ -38,6 +38,7 @@ const navItems: NavItem[] = [
     href: "/about",
     children: [
       { label: "Who We Are", href: "/about" },
+      { label: "Our Campus", href: "/campus-and-facilities" },
       { label: "Our Teachers", href: "/our-teachers" },
       {
         label: "Academic & Examination Board",
